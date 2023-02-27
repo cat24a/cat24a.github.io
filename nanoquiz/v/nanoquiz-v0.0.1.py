@@ -1,4 +1,4 @@
-VERSION = "nanoquiz-v0.0.1.py"
+VERSION = "nanoquiz-v0.0.1.py-outdated-please-update"
 
 update_check_time = 0
 
@@ -24,11 +24,11 @@ def main() -> None:
         del shk
         
         while True:
+            if update_check_time + 86400 < time.time():
+                update()
             (q, a), = random.choices(data, gen_weights(data, sh))
             correct = display_question(q, a)
             sh[q] = (time.time(), sh[q][1] * 0.5 + correct * 0.5)
-            if update_check_time + 86400 < time.time():
-                update()
             time.sleep(2)
 
 
@@ -83,6 +83,7 @@ def update():
         print("couldn't check for updates, please check your internet connection")
         return
     latest = r.content.decode("utf-8")
+    latest = latest.removesuffix("\n")
     if latest == VERSION:
         print("this is the latest version")
         return
