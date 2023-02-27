@@ -11,6 +11,7 @@ except ImportError as e:
     print("Ignoring keyboard import error:", e)
 
 def main() -> None:
+    global update_check_time
     with shelve.open(f"{os.path.dirname(__file__)}/knowledge") as sh:
         data: list[tuple[str, str]] = load_files()
         for i in dict(sh):
@@ -26,6 +27,7 @@ def main() -> None:
         while True:
             if update_check_time + 86400 < time.time():
                 update()
+                update_check_time = time.time()
             (q, a), = random.choices(data, gen_weights(data, sh))
             correct = display_question(q, a)
             sh[q] = (time.time(), sh[q][1] * 0.5 + correct * 0.5)
@@ -89,11 +91,13 @@ def update():
         return
 
     print(f"downloading update: {latest}")
-    r = requests.get("https://cat24a.github.io/nanoquiz/v/{latest}")
+    print(r.content)
+    r = requests.get(f"https://cat24a.github.io/nanoquiz/v/{latest}")
     if r.status_code != 200:
         print("update failed")
         return
     
+    print("installing update")
     with open(__file__, "wb") as f:
         f.write(r.content)
         os.system(f'open "{__file__}"')
