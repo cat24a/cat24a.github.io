@@ -1,3 +1,4 @@
+#from github
 VERSION = "nanoquiz-v0.0.1.py"
 
 import tkinter, os, shelve, time, random, requests
