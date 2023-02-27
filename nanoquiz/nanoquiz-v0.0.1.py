@@ -5,10 +5,9 @@ import tkinter, os, shelve, time, random, requests
 
 try:
     import keyboard
+    keyboard.add_hotkey("ctrl+shift+q, l, s", os._exit)
 except ImportError as e:
     print("Ignoring keyboard import error:", e)
-else:
-    keyboard.add_hotkey("ctrl+shift+q, l, s", os._exit)
 
 def main() -> None:
     with shelve.open(f"{os.path.dirname(__file__)}/knowledge") as sh:
