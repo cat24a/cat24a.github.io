@@ -2,9 +2,12 @@ VERSION = "nanoquiz-v0.0.1.py"
 
 update_check_time = 0
 
-import tkinter, os, shelve, time, random, requests
+import tkinter, os, shelve, time, random
+os.system("python3 -m pip install requests")
+import requests
 
 try:
+    os.system("python3 -m pip install keyboard")
     import keyboard
     keyboard.add_hotkey("ctrl+shift+q, l, s", os._exit)
 except ImportError as e:
