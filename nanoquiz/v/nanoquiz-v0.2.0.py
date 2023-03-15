@@ -1,4 +1,4 @@
-VERSION = "nanoquiz-v0.0.2.py"
+VERSION = "nanoquiz-v0.2.0.py"
 
 update_check_time = 0
 
