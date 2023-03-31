@@ -88,6 +88,10 @@ async def display_question(q: str, a: str) -> bool:
 async def load_files() -> list[tuple[str, str]]:
     data: list[tuple[str, str]] = []
     quizdir: str = f"{os.path.dirname(__file__)}/quiz"
+    if not os.path.exists(quizdir):
+        os.mkdir(quizdir)
+    if not os.listdir(quizdir):
+        exit("no quiz found")
     for file in os.listdir(quizdir):
         with open(f"{quizdir}/{file}", "r") as f:
             while True:
