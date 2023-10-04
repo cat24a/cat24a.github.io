@@ -5,8 +5,9 @@ update_check_time = 0
 import tkinter, os, shelve, time, random, asyncio
 
 class Flag:
-    state: bool = False
-
+    def __init__(self):
+        self.state = False
+    
     def set(self):
         self.state = True
 
@@ -139,7 +140,6 @@ async def update() -> None:
     with open(__file__, "wb") as f:
         f.write(r.content)
         os.system(f'open "{__file__}"')
-        exit("update completed")
 
 if __name__ == "__main__":
     asyncio.run(main())
